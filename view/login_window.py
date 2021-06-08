@@ -1,5 +1,9 @@
-from threading import Thread
+"""
+文件名：login_window.py
+描述：实现登录窗口的交互以及登录验证
+"""
 
+from threading import Thread
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import pyqtSignal, Qt
@@ -53,8 +57,8 @@ class LoginWindow(Ui_Form, QWidget):
 
         # 注册
         if tag == 'register':
-            self.register_win = RegisterWindow(self)
-            self.hide()
+            self.register_win = RegisterWindow(self)  # 对这个构造函数进行了修改，同步后删除本注释
+            self.hide()  # 新增一行，这些修改达到注册时隐藏登录窗口的效果，注册完成后再恢复显示
             self.register_win.show()
 
         # 登陆

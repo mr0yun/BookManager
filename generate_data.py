@@ -1,9 +1,15 @@
+"""
+文件名：generate_data.py
+描述：使用mysql在本地连接，新建数据库book及相关表
+"""
 import pymysql
+import traceback
 host = '127.0.0.1'
 port = 3306
 user = 'root'
-# password = '19940124'
-password = ''
+password = ''  # 这是我的密码，如需使用请进行更改
+
+# 手动输入参数方式
 # print('Starting the create database operation, please enter the information required for the database.')
 # print('------------------------------------')
 # host = input('please input database host:')
@@ -70,11 +76,10 @@ try:
     print('ask_return table created done.')
     print('-'*30)
     print('operate done.')
-    print('create database successful.')
+    print('create database successfully.')
 except Exception as e:
     print('the require information of database is correct, please check it and retry.')
     print(e.args)
-    import traceback
     traceback.print_exc()
     print('create database failed.')
 
@@ -83,12 +88,13 @@ print('1. insert')
 print('2. exit')
 insert_tag = input('please select the option:')
 if insert_tag == '1':
+    # 新建两个用户，管理员admin和普通用户张三
     print('------------------------------------')
     print('starting the insert data operation...')
     admin_data = ['12644064935811ea9063d8c497639e37', 'admin', '21232f297a57a5a743894a0e4a801fc3', 0,
-                  '2020-05-11 15:23:12', 0, '2020-05-11 15:24:23']
+                  '2021-06-06 15:23:12', 0, '2020-06-06 15:24:23']
     user_data = ['99477a9e935811ea8171d8c497639e37', 'zhangsan', 'e10adc3949ba59abbe56e057f20f883e', 1,
-                 '2020-05-11 15:23:12', 0, '2020-05-11 15:24:23']
+                 '2020-06-06 15:23:12', 0, '2020-06-06 15:24:23']
     sql = 'insert into user (id, username, password, role, create_time, delete_flag, current_login_time) values(%s,%s,'\
           '%s,%s,%s,%s,%s)'
     cur.execute(sql, admin_data)

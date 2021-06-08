@@ -1,3 +1,8 @@
+"""
+文件名：main_window.py
+描述：实现主窗口的交互
+"""
+
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMainWindow, QMessageBox
 from ui.main_window import Ui_MainWindow
@@ -7,10 +12,9 @@ from view.book_manage_window import BookManageWindow
 from view.borrow_info_window import BorrowInfoWindow
 
 
-# noinspection PyCallByClass
 class MainWindow(Ui_MainWindow, QMainWindow):
 
-    def __init__(self,login=None, username=None, role=None):
+    def __init__(self, login=None, username=None, role=None):
         super(MainWindow, self).__init__()
         self.setupUi(self)
         self.is_change_user = False

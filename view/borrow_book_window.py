@@ -1,3 +1,8 @@
+"""
+文件名：borrow_book_window.py
+描述：借书
+"""
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget

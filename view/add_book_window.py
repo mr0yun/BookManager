@@ -1,3 +1,8 @@
+"""
+文件名：add_book_window.py
+描述：添加书籍
+"""
+
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget
@@ -21,6 +26,10 @@ class AddBookWindow(Ui_Form, QWidget):
         self.setStyleSheet(SYS_STYLE)
 
     def add(self):
+        """
+        获取输入并检查后将其插入数据库
+        :return:
+        """
         book_name = self.book_name_lineEdit.text()
         author = self.author_lineEdit.text()
         publish_company = self.publish_company_lineEdit.text()

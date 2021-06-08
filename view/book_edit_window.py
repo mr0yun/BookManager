@@ -1,5 +1,9 @@
-from threading import Thread
+"""
+文件名：book_edit_window.py
+描述：图书编辑
+"""
 
+from threading import Thread
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget

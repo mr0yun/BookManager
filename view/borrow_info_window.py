@@ -1,3 +1,8 @@
+"""
+文件名：borrow_info_window.py
+描述：借阅信息窗口
+"""
+
 from threading import Thread
 
 from PyQt5.QtCore import pyqtSignal, Qt
@@ -85,9 +90,15 @@ class BorrowInfoWindow(Ui_Form, QWidget):
                     pass
 
             if action == ask_return_action:
+                # 催还时所做措施（发消息？）
                 pass
 
     def return_book(self, borrow_id):
+        """
+        归还图书，更新借还状态
+        :param borrow_id:
+        :return:
+        """
         db = DBHelp()
         db.update_borrow_statue(borrow_id)
         db.db_commit()
@@ -96,6 +107,10 @@ class BorrowInfoWindow(Ui_Form, QWidget):
         self.init_data()
 
     def search_borrow_info(self):
+        """
+        搜索框依据搜索类型和输入内容查询数据库
+        :return:
+        """
         if self.borrow_user_search_lineEdit.text() == '':
             msg_box(self, '提示', '请输入需要搜索的内容!')
             return
@@ -133,9 +148,9 @@ class BorrowInfoWindow(Ui_Form, QWidget):
             for i in range(len(info)):
                 item = QTableWidgetItem(str(info[i]))
                 if info[i] == '未还':
-                    item.setBackground(QColor('#ff3333'))
+                    item.setBackground(QColor('#ff3333'))  # 红色
                 if info[i] == '已还':
-                    item.setBackground(QColor('#33ff33'))
+                    item.setBackground(QColor('#33ff33'))  # 绿色
                 self.tableWidget.setItem(self.tableWidget.rowCount() - 1, i, item)
 
         for i in range(self.tableWidget.rowCount()):
@@ -149,20 +164,24 @@ class BorrowInfoWindow(Ui_Form, QWidget):
             count, res = db.query_all(table_name='borrow_info')
             self.get_data_from_database(db, res)
         else:
+            # 普通用户只显示自己的借阅记录
             db = DBHelp()
             count, res = db.query_super(table_name='borrow_info', column_name='borrow_user', condition=self.username)
             self.get_data_from_database(db, res)
 
     def get_data_from_database(self, db, res):
+        # 从数据库中读取数据，并分列组合成要显示的数据
         self.return_flag = []
         self.borrow_info_id = []
         self.borrow_info_list.clear()
         for record in res:
+            print(record)
             book_id = record[1]
             self.borrow_info_id.append(record[0])
             count, book_info = db.query_super(table_name='book', column_name='id', condition=book_id)
+            print(str(record[-1]))
             sub_info = [record[3], record[2], book_info[0][3], book_info[0][-1], record[4], str(record[6]),
-                        str(record[7]), BORROW_STATUS_MAP.get(str(record[-2]))]
-            self.return_flag.append(record[-2])
+                        str(record[7]), BORROW_STATUS_MAP.get(str(record[-1]))]
+            self.return_flag.append(record[-1])
             self.borrow_info_list.append(sub_info)
         self.init_data_done_signal.emit(self.borrow_info_list)

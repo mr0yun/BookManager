@@ -1,5 +1,9 @@
-from threading import Thread
+"""
+文件名：book_manage_window.py
+描述：图书管理
+"""
 
+from threading import Thread
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QHeaderView, QTableWidgetItem, QAbstractItemView, QMenu, QAction, QMessageBox
@@ -10,7 +14,7 @@ from util.common_util import msg_box, SEARCH_CONTENT_MAP, DELETE_ICON, EDIT_ICON
 from view.book_edit_window import BookEditWindow
 from view.borrow_book_window import BorrowBookWindow
 
-# noinspection DuplicatedCode
+
 class BookManageWindow(Ui_Form, QWidget):
     query_book_info_done_signal = pyqtSignal(list)
 
@@ -42,6 +46,11 @@ class BookManageWindow(Ui_Form, QWidget):
             self.add_book_pushButton.setVisible(False)
 
     def generate_menu(self, pos):
+        """
+        右键菜单，管理员可以编辑图书与删除图书，普通用户则可以借书
+        :param pos: 当前鼠标点击位置
+        :return:
+        """
         row_num = -1
         for i in self.tableWidget.selectionModel().selection().indexes():
             row_num = i.row()
@@ -94,11 +103,17 @@ class BookManageWindow(Ui_Form, QWidget):
         self.get_book_info()
 
     def show_book(self, book_info_result):
+        """
+        将数据库中获取的图书信息展示在页面上
+        :param book_info_result: 图书信息
+        :return:
+        """
         self.book_id = list()
+        # 先把原来显示的图书信息删除
         for i in range(self.tableWidget.rowCount()):
             self.tableWidget.removeRow(0)
         count = book_info_result[0]
-        self.book_total_label.setText('本图书馆共有藏书' + str(count) + '本~')
+        self.book_total_label.setText('本图书馆共有藏书' + str(count) + '本')
         books = book_info_result[1]
         for book in books:
             self.tableWidget.insertRow(self.tableWidget.rowCount())
@@ -130,6 +145,7 @@ class BookManageWindow(Ui_Form, QWidget):
                 msg_box(self, '提示', '请输入搜索内容~')
                 return
             db = DBHelp()
+            # 根据选择的搜索类型查询数据库
             count, res = db.query_super(table_name='book', column_name=SEARCH_CONTENT_MAP.get(search_type),
                                         condition=search_content)
             if count == 0:
@@ -145,6 +161,10 @@ class BookManageWindow(Ui_Form, QWidget):
         th.start()
 
     def book_info_th(self):
+        """
+        查询书籍数据
+        :return:
+        """
         db = DBHelp()
         count, res = db.query_all(table_name='book')
         self.query_book_info_done_signal.emit([count, res])

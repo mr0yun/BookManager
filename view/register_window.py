@@ -1,3 +1,8 @@
+"""
+文件名：register_window.py
+描述：实现注册窗口的交互以及注册验证
+"""
+
 import sys
 
 from PyQt5.QtCore import Qt

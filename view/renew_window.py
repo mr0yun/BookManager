@@ -1,5 +1,9 @@
-from threading import Thread
+"""
+文件名：renew_window.py
+描述：书籍续借
+"""
 
+from threading import Thread
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QApplication
@@ -59,6 +63,10 @@ class RenewWindow(Ui_Form, QWidget):
             traceback.print_exc()
 
     def execute_renew(self):
+        """
+        修改数据库中的归还日期
+        :return:
+        """
         try:
             day = int(self.renew_days_lineEdit.text())
             return_time = self.return_date_lineEdit.text()
@@ -72,6 +80,10 @@ class RenewWindow(Ui_Form, QWidget):
             self.renew_done_signal.emit(0)
 
     def modify_return_date(self):
+        """
+        修改显示日期的文本框的内容，为依据输入天数计算得出的日期
+        :return:
+        """
         if self.renew_days_lineEdit.text() == '':
             day = 0
         else:
@@ -87,6 +99,7 @@ class RenewWindow(Ui_Form, QWidget):
             self.close()
 
 
+# 测试
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     win = RenewWindow(borrow_id='53ee8f80b20d11ea9f9ed8c497639e37')
