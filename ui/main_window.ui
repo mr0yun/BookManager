@@ -109,7 +109,7 @@
              <string notr="true">font: 14pt &quot;宋体&quot;;</string>
             </property>
             <property name="text">
-             <string>XX大学图书管理系统</string>
+             <string>南昌大学图书管理系统</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignCenter</set>
@@ -203,6 +203,9 @@
         </item>
         <item>
          <widget class="QStackedWidget" name="stackedWidget">
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
           <widget class="QWidget" name="page"/>
           <widget class="QWidget" name="page_2"/>
          </widget>
@@ -219,7 +222,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>26</height>
+     <height>30</height>
     </rect>
    </property>
   </widget>

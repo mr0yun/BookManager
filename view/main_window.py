@@ -29,7 +29,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         self.pushButton.setMinimumWidth(60)
         self.setStyleSheet(SYS_STYLE)
         self.setWindowIcon(QIcon(APP_ICON))
-        self.setWindowTitle('图书管理系统-Version 1.0.0.0 Beta')
+        self.setWindowTitle('NCU图书管理系统')
         self.listWidget.setCurrentRow(0)
         self.current_username_label.setText(self.username)
         self.current_role_label.setText(self.role)
@@ -45,6 +45,8 @@ class MainWindow(Ui_MainWindow, QMainWindow):
 
     def item_changed(self):
         self.stackedWidget.setCurrentIndex(self.listWidget.currentRow())
+        # print(self.listWidget.currentRow())
+        print(self.stackedWidget.count())
 
     def log_out(self):
         self.is_change_user = True

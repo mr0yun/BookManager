@@ -175,11 +175,11 @@ class BorrowInfoWindow(Ui_Form, QWidget):
         self.borrow_info_id = []
         self.borrow_info_list.clear()
         for record in res:
-            print(record)
+            # print(record)
             book_id = record[1]
             self.borrow_info_id.append(record[0])
             count, book_info = db.query_super(table_name='book', column_name='id', condition=book_id)
-            print(str(record[-1]))
+            # print(str(record[-1]))
             sub_info = [record[3], record[2], book_info[0][3], book_info[0][-1], record[4], str(record[6]),
                         str(record[7]), BORROW_STATUS_MAP.get(str(record[-1]))]
             self.return_flag.append(record[-1])
