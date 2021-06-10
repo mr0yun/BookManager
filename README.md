@@ -39,10 +39,10 @@ pip install pymysql -i https://pypi.douban.com/simple
 
 ### 部分示例页面
 #### 1.登陆页面
-![登陆页面](https://github.com/weijiang1994/BookManage/blob/master/screenshoot/login.png)
+![登陆页面](https://github.com/mr0yun/BookManager/edit/master/screenshoot/login.png)
 #### 2.借阅管理页面
-![借阅管理页面](https://github.com/weijiang1994/BookManage/blob/master/screenshoot/borrow_book.png)
+![借阅管理页面](https://github.com/mr0yun/BookManager/edit/master/screenshoot/borrow_book.png)
 #### 3.主界面
-![主页面](https://github.com/weijiang1994/BookManage/blob/master/screenshoot/main.png)
+![主页面](https://github.com/mr0yun/BookManager/edit/master/screenshoot/main.png)
 
 
