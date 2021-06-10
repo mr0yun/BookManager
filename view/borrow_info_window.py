@@ -11,7 +11,7 @@ from PyQt5.QtWidgets import QWidget, QHeaderView, QAbstractItemView, QTableWidge
 from ui.book_borrow_info_window import Ui_Form
 from util.dbutil import DBHelp
 from util.common_util import BORROW_STATUS_MAP, SYS_STYLE, SEARCH_CONTENT_MAP, msg_box, RETURN, DELAY_TIME, accept_box, \
-    DELETE_ICON, PUSH_RETURN
+    DELETE_ICON, PUSH_RETURN, get_current_time
 from view.renew_window import RenewWindow
 
 
@@ -145,12 +145,20 @@ class BorrowInfoWindow(Ui_Form, QWidget):
             self.tableWidget.removeRow(0)
         for info in infos:
             self.tableWidget.insertRow(self.tableWidget.rowCount())
+            current_time = get_current_time()
+            color = '#A8F5AC'  # 绿色
+            if info[7] == '未还':
+                if info[6] < current_time:
+                    # 逾期未还
+                    color = '#FF7E57'  # 红色
+                    info[7] = '逾期'
+                else:
+                    color = '#F9F9CD'  # 淡黄色
+
             for i in range(len(info)):
                 item = QTableWidgetItem(str(info[i]))
-                if info[i] == '未还':
-                    item.setBackground(QColor('#ff3333'))  # 红色
-                if info[i] == '已还':
-                    item.setBackground(QColor('#33ff33'))  # 绿色
+                if i == 7:
+                    item.setBackground(QColor(color))
                 self.tableWidget.setItem(self.tableWidget.rowCount() - 1, i, item)
 
         for i in range(self.tableWidget.rowCount()):

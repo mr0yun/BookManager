@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>257</width>
-    <height>187</height>
+    <width>297</width>
+    <height>199</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,9 @@
       <widget class="QLabel" name="label">
        <property name="text">
         <string>用户注册</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -52,7 +55,7 @@
        <item>
         <widget class="QLineEdit" name="password_lineEdit">
          <property name="echoMode">
-          <enum>QLineEdit::PasswordEchoOnEdit</enum>
+          <enum>QLineEdit::Password</enum>
          </property>
         </widget>
        </item>
@@ -70,7 +73,7 @@
        <item>
         <widget class="QLineEdit" name="confirm_password_lineEdit">
          <property name="echoMode">
-          <enum>QLineEdit::PasswordEchoOnEdit</enum>
+          <enum>QLineEdit::Password</enum>
          </property>
         </widget>
        </item>
@@ -78,6 +81,13 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <item>
+        <widget class="QPushButton" name="return_pushButton">
+         <property name="text">
+          <string>返回</string>
+         </property>
+        </widget>
+       </item>
        <item>
         <spacer name="horizontalSpacer">
          <property name="orientation">

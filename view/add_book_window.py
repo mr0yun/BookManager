@@ -7,7 +7,7 @@ from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget
 from ui.add_book_window import Ui_Form
-from util.common_util import msg_box, get_current_time, get_uuid, APP_ICON, SYS_STYLE
+from util.common_util import msg_box, get_current_time, get_uuid, APP_ICON, SYS_STYLE, set_le_reg, PATTERS
 from util.dbutil import DBHelp
 
 
@@ -24,6 +24,8 @@ class AddBookWindow(Ui_Form, QWidget):
         self.setWindowIcon(QIcon(APP_ICON))
         self.add_book_pushButton.setProperty('class', 'Aqua')
         self.setStyleSheet(SYS_STYLE)
+        set_le_reg(widget=self, le=self.store_num_lineEdit, pattern=PATTERS[1])
+        set_le_reg(widget=self, le=self.publish_date_lineEdit, pattern=PATTERS[2])
 
     def add(self):
         """
@@ -34,7 +36,7 @@ class AddBookWindow(Ui_Form, QWidget):
         author = self.author_lineEdit.text()
         publish_company = self.publish_company_lineEdit.text()
         publish_date = self.publish_date_lineEdit.text()
-        store_num = self.store_num_lineEdit.text()
+        store_num = int(self.store_num_lineEdit.text())
         if '' in [book_name, author, publish_company, publish_date, store_num]:
             msg_box(self, '错误', '请输入图书的关键信息!')
             return

@@ -35,6 +35,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         self.current_role_label.setText(self.role)
         self.stackedWidget.removeWidget(self.page)
         self.stackedWidget.removeWidget(self.page_2)
+        # 添加自定义的页面（按左侧listWidget的项的顺序）
         self.stackedWidget.addWidget(HomeWindow())
         self.stackedWidget.addWidget(BorrowInfoWindow(user_role=self.role, username=self.username))
         self.stackedWidget.addWidget(BookManageWindow(self.role, self.username))

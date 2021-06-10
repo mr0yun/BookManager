@@ -20,12 +20,15 @@ class RegisterWindow(Ui_Form, QWidget):
         self.setWindowTitle('用户注册')
         self.init_ui()
         self.register_pushButton.clicked.connect(self.register)
+        self.return_pushButton.clicked.connect(self.back)
         self.loginWindow = login
 
     def init_ui(self):
         self.register_pushButton.setProperty('class', 'Aqua')
+        self.return_pushButton.setProperty('class', 'Aqua')
         self.setStyleSheet(SYS_STYLE)
         self.register_pushButton.setMinimumWidth(60)
+        self.return_pushButton.setMinimumWidth(60)
         self.setWindowIcon(QIcon(APP_ICON))
         self.setWindowModality(Qt.ApplicationModal)
         self.setWindowFlags(Qt.WindowCloseButtonHint)
@@ -51,6 +54,9 @@ class RegisterWindow(Ui_Form, QWidget):
         db.instance = None
         del db
         msg_box(self, '提示', '注册成功!')
+        self.back()
+
+    def back(self):
         self.loginWindow.show()
         self.close()
 

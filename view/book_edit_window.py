@@ -9,7 +9,8 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget
 from ui.add_book_window import Ui_Form
 from util.dbutil import DBHelp
-from util.common_util import msg_box, APP_ICON, SYS_STYLE
+from util.common_util import msg_box, APP_ICON, SYS_STYLE, set_le_reg, PATTERS
+
 
 class BookEditWindow(Ui_Form, QWidget):
     init_book_info_done_signal = pyqtSignal()
@@ -22,6 +23,8 @@ class BookEditWindow(Ui_Form, QWidget):
         self.current_book_info = list()
         self.init_book_info_done_signal.connect(self.init_data)
         self.add_book_pushButton.clicked.connect(self.update_book_info)
+        set_le_reg(widget=self, le=self.store_num_lineEdit, pattern=PATTERS[1])
+        set_le_reg(widget=self, le=self.publish_date_lineEdit, pattern=PATTERS[2])
         th = Thread(target=self.get_book_info)
         th.start()
 
@@ -71,6 +74,7 @@ class BookEditWindow(Ui_Form, QWidget):
                 del db
                 self.close()
                 is_update = True
+                break
         if is_update:
                 msg_box(self, '提示', '图书信息更新成功!')
         self.close()
