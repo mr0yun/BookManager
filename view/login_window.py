@@ -12,7 +12,8 @@ from view.main_window import MainWindow
 from util.dbutil import DBHelp
 from util.common_util import msg_box, get_md5, APP_ICON, SYS_STYLE
 from view.register_window import RegisterWindow
-
+import ctypes
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("myappid")#将exe的图标在状态栏显示
 
 class LoginWindow(Ui_Form, QWidget):
     login_done_signal = pyqtSignal(int)
@@ -35,14 +36,14 @@ class LoginWindow(Ui_Form, QWidget):
         """
         self.setWindowTitle('用户登录')
         self.setWindowIcon(QIcon(APP_ICON))
-        self.login_pushButton.setProperty('class', 'Aqua')
+        self.login_pushButton.setProperty('class', 'Aqua')#给按钮设置qss样式
         self.register_pushButton.setProperty('class', 'Aqua')
         self.setStyleSheet(SYS_STYLE)
         self.setWindowFlags(Qt.WindowCloseButtonHint|Qt.WindowMinimizeButtonHint)
 
     def init_slot(self):
         """
-        初始化信号槽连接
+        初始化登录界面的信号槽连接
         """
         self.register_pushButton.clicked.connect(lambda: self.btn_slot('register'))
         self.login_pushButton.clicked.connect(lambda: self.btn_slot('login'))

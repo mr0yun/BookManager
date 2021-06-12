@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>253</width>
-    <height>142</height>
+    <width>281</width>
+    <height>194</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,8 +21,17 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QLabel" name="book_name_label">
+       <property name="font">
+        <font>
+         <family>宋体</family>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
        <property name="text">
         <string>图书续借</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -30,6 +39,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
         <widget class="QLabel" name="label_2">
+         <property name="font">
+          <font>
+           <family>宋体</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>天数:</string>
          </property>
@@ -37,6 +52,12 @@
        </item>
        <item>
         <widget class="QLineEdit" name="renew_days_lineEdit">
+         <property name="font">
+          <font>
+           <family>Agency FB</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -51,6 +72,12 @@
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
         <widget class="QLabel" name="label_3">
+         <property name="font">
+          <font>
+           <family>宋体</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>日期:</string>
          </property>
@@ -58,6 +85,12 @@
        </item>
        <item>
         <widget class="QLineEdit" name="return_date_lineEdit">
+         <property name="font">
+          <font>
+           <family>Agency FB</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string/>
          </property>
@@ -88,6 +121,12 @@
        </item>
        <item>
         <widget class="QPushButton" name="renew_pushButton">
+         <property name="font">
+          <font>
+           <family>宋体</family>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>续借</string>
          </property>

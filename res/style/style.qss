@@ -1,9 +1,12 @@
 * {
-    font-family: "Microsoft YaHei";
+    font-family: "KaiTi";
 }
 
 QWidget{
-    background-color: rgb(255, 255, 255);
+    /*background-color: rgb(255, 255, 255);*/
+    background-color:#D1EEEE;
+    /* background-color:#E6E6FA;*/
+
 }
 
 QWidget:focus{
@@ -41,7 +44,6 @@ QLineEdit {
 QLineEdit:focus {
     border: 1px solid #3bafda;
 }
-
 
 /*QComboBox*/
 QComboBox {
@@ -120,14 +122,15 @@ QHeaderView{
 QHeaderView::section{
     height: 40px;
     border: 0 solid rgba(255, 255, 255, 0);
-    background-color: #fff;
+    background-color:#d1eeee;
     outline: none;
 }
 
 QTableWidget,QTableView{
     border: 1px solid #ccd1d9;
     alternate-background-color: #f1f2f6;
-    background-color: #fff;
+    /*background-color: #fff;*/
+    background-color:#ecf8f8;
     selection-background-color : #3bafda;
 }
 

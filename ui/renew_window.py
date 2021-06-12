@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'renew_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,21 +11,34 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(253, 142)
+        Form.resize(281, 194)
         Form.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setObjectName("gridLayout")
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.book_name_label = QtWidgets.QLabel(Form)
+        font = QtGui.QFont()
+        font.setFamily("宋体")
+        font.setPointSize(12)
+        self.book_name_label.setFont(font)
+        self.book_name_label.setAlignment(QtCore.Qt.AlignCenter)
         self.book_name_label.setObjectName("book_name_label")
         self.verticalLayout.addWidget(self.book_name_label)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label_2 = QtWidgets.QLabel(Form)
+        font = QtGui.QFont()
+        font.setFamily("宋体")
+        font.setPointSize(12)
+        self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.horizontalLayout.addWidget(self.label_2)
         self.renew_days_lineEdit = QtWidgets.QLineEdit(Form)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.renew_days_lineEdit.setFont(font)
         self.renew_days_lineEdit.setText("")
         self.renew_days_lineEdit.setObjectName("renew_days_lineEdit")
         self.horizontalLayout.addWidget(self.renew_days_lineEdit)
@@ -33,9 +46,17 @@ class Ui_Form(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.label_3 = QtWidgets.QLabel(Form)
+        font = QtGui.QFont()
+        font.setFamily("宋体")
+        font.setPointSize(12)
+        self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         self.horizontalLayout_2.addWidget(self.label_3)
         self.return_date_lineEdit = QtWidgets.QLineEdit(Form)
+        font = QtGui.QFont()
+        font.setFamily("Agency FB")
+        font.setPointSize(12)
+        self.return_date_lineEdit.setFont(font)
         self.return_date_lineEdit.setText("")
         self.return_date_lineEdit.setEchoMode(QtWidgets.QLineEdit.Normal)
         self.return_date_lineEdit.setReadOnly(True)
@@ -47,6 +68,10 @@ class Ui_Form(object):
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem)
         self.renew_pushButton = QtWidgets.QPushButton(Form)
+        font = QtGui.QFont()
+        font.setFamily("宋体")
+        font.setPointSize(12)
+        self.renew_pushButton.setFont(font)
         self.renew_pushButton.setObjectName("renew_pushButton")
         self.horizontalLayout_3.addWidget(self.renew_pushButton)
         self.verticalLayout.addLayout(self.horizontalLayout_3)

@@ -23,13 +23,17 @@ class BorrowBookWindow(Ui_Form, QWidget):
         self.setWindowTitle('借书')
         self.setWindowIcon(QIcon(APP_ICON))
         self.book_name_lineEdit.setText(self.book_name)
-        self.borrow_pushButton.clicked.connect(self.borrow_book)
+        self.borrow_pushButton.clicked.connect(self.borrow_book)#信号槽连接，借书时
         self.setWindowModality(Qt.ApplicationModal)
         self.borrow_pushButton.setProperty('class', 'Aqua')
-        set_le_reg(self, self.borrow_day_lineEdit, pattern=PATTERS[0])
+        set_le_reg(self, self.borrow_day_lineEdit, pattern=PATTERS[0])#给控件添加正则表达式匹配，限制输入，PATTERS = ['^[0-9]{1,2}$']
         self.setStyleSheet(SYS_STYLE)
 
     def borrow_book(self):
+        """
+        借书槽函数
+        :return:
+        """
         borrow_day = self.borrow_day_lineEdit.text()
         if borrow_day == '':
             msg_box(self, '提示', '借阅天数不能为空！')

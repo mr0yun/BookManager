@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>566</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -105,8 +105,11 @@
           </item>
           <item>
            <widget class="QLabel" name="label">
+            <property name="cursor">
+             <cursorShape>UpArrowCursor</cursorShape>
+            </property>
             <property name="styleSheet">
-             <string notr="true">font: 14pt &quot;宋体&quot;;</string>
+             <string notr="true">font: 14pt bold &quot;宋体&quot;;</string>
             </property>
             <property name="text">
              <string>南昌大学图书管理系统</string>
@@ -203,9 +206,6 @@
         </item>
         <item>
          <widget class="QStackedWidget" name="stackedWidget">
-          <property name="currentIndex">
-           <number>0</number>
-          </property>
           <widget class="QWidget" name="page"/>
           <widget class="QWidget" name="page_2"/>
          </widget>
@@ -222,7 +222,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>30</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>

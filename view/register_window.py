@@ -19,8 +19,8 @@ class RegisterWindow(Ui_Form, QWidget):
         self.setupUi(self)
         self.setWindowTitle('用户注册')
         self.init_ui()
-        self.register_pushButton.clicked.connect(self.register)
-        self.return_pushButton.clicked.connect(self.back)
+        self.register_pushButton.clicked.connect(self.register)#信号槽连接
+        self.return_pushButton.clicked.connect(self.retu_login)  # 信号槽连接
         self.loginWindow = login
 
     def init_ui(self):
@@ -34,6 +34,10 @@ class RegisterWindow(Ui_Form, QWidget):
         self.setWindowFlags(Qt.WindowCloseButtonHint)
 
     def register(self):
+        """
+        注册处理槽函数
+        :return:
+        """
         username = self.username_lineEdit.text()
         password = self.password_lineEdit.text()
         confirm = self.confirm_password_lineEdit.text()
@@ -54,12 +58,16 @@ class RegisterWindow(Ui_Form, QWidget):
         db.instance = None
         del db
         msg_box(self, '提示', '注册成功!')
-        self.back()
-
-    def back(self):
         self.loginWindow.show()
         self.close()
 
+    def retu_login(self):
+        """
+        返回登录界面
+        :return:
+        """
+        self.loginWindow.show()
+        self.close()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

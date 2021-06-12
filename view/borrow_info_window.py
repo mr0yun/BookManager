@@ -16,6 +16,7 @@ from view.renew_window import RenewWindow
 
 
 class BorrowInfoWindow(Ui_Form, QWidget):
+    #自定义信号
     init_data_done_signal = pyqtSignal(list)
     return_book_done_signal = pyqtSignal()
 
@@ -26,17 +27,22 @@ class BorrowInfoWindow(Ui_Form, QWidget):
         self.username = username
         self.renew_win = None
         self.borrow_info_list = list()
-        self.init_data_done_signal.connect(self.show_info)
-        self.refresh_pushButton.clicked.connect(self.init_data)
-        self.search_borrow_user_pushButton.clicked.connect(self.search_borrow_info)
-        self.tableWidget.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.init_data_done_signal.connect(self.show_info)#初始化时信号槽，显示信息
+        self.refresh_pushButton.clicked.connect(self.init_data)#信号槽，刷新按钮
+        self.search_borrow_user_pushButton.clicked.connect(self.search_borrow_info)#信号槽连接，搜索按钮
+        self.tableWidget.setContextMenuPolicy(Qt.CustomContextMenu)#设置右击菜单
         self.tableWidget.customContextMenuRequested.connect(self.generate_menu)
-        self.return_flag = []
+        self.return_flag = []#归还状态
         self.borrow_info_id = []
         self.init_ui()
         self.init_data()
 
     def generate_menu(self, pos):
+        """
+        借阅信息书籍列表界面，针对不同角色生成不同菜单
+        :param pos:
+        :return:
+        """
         row_num = -1
         for i in self.tableWidget.selectionModel().selection().indexes():
             row_num = i.row()
@@ -126,21 +132,30 @@ class BorrowInfoWindow(Ui_Form, QWidget):
             self.get_data_from_database(db, res=res)
 
     def init_ui(self):
+        """
+        初始化ui界面
+        :return:
+        """
         self.setWindowFlags(Qt.WindowCloseButtonHint)
         self.setStyleSheet(SYS_STYLE)
         self.refresh_pushButton.setProperty('class', 'Aqua')
         self.search_borrow_user_pushButton.setProperty('class', 'Aqua')
         self.refresh_pushButton.setMinimumWidth(60)
         self.search_borrow_user_pushButton.setMinimumWidth(60)
-        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)#所有列自动拉伸，充满界面
+        self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)#设置不可在界面编辑
 
     def init_data(self):
-        self.borrow_user_search_lineEdit.clear()
+        self.borrow_user_search_lineEdit.clear()#初始化时使搜索文本清空
         th = Thread(target=self.book_info_th)
         th.start()
 
     def show_info(self, infos):
+        """
+        显示信息
+        :param infos:
+        :return:
+        """
         for i in range(self.tableWidget.rowCount()):
             self.tableWidget.removeRow(0)
         for info in infos:
@@ -167,6 +182,10 @@ class BorrowInfoWindow(Ui_Form, QWidget):
                 item.setTextAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
 
     def book_info_th(self):
+        """
+        书本信息线程槽函数，使得用户和管理员显示的借阅界面不同，用户只显示自己借的，管理员显示所有
+        :return:
+        """
         if self.user_role == '管理员':
             db = DBHelp()
             count, res = db.query_all(table_name='borrow_info')
@@ -178,16 +197,21 @@ class BorrowInfoWindow(Ui_Form, QWidget):
             self.get_data_from_database(db, res)
 
     def get_data_from_database(self, db, res):
-        # 从数据库中读取数据，并分列组合成要显示的数据
+        """
+        从数据库中读取数据，并分列组合成要显示的数据
+        :param db:
+        :param res:
+        :return:
+        """
         self.return_flag = []
         self.borrow_info_id = []
         self.borrow_info_list.clear()
         for record in res:
-            # print(record)
+            print(record)
             book_id = record[1]
             self.borrow_info_id.append(record[0])
             count, book_info = db.query_super(table_name='book', column_name='id', condition=book_id)
-            # print(str(record[-1]))
+            print(str(record[-1]))
             sub_info = [record[3], record[2], book_info[0][3], book_info[0][-1], record[4], str(record[6]),
                         str(record[7]), BORROW_STATUS_MAP.get(str(record[-1]))]
             self.return_flag.append(record[-1])

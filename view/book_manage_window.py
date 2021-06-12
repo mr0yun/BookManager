@@ -16,7 +16,7 @@ from view.borrow_book_window import BorrowBookWindow
 
 
 class BookManageWindow(Ui_Form, QWidget):
-    query_book_info_done_signal = pyqtSignal(list)
+    query_book_info_done_signal = pyqtSignal(list)#自定义信号
 
     def __init__(self, user_role=None, username=None):
         super(BookManageWindow, self).__init__()
@@ -32,16 +32,16 @@ class BookManageWindow(Ui_Form, QWidget):
         self.init_data()
 
     def init_ui(self):
-        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.tableWidget.setContextMenuPolicy(Qt.CustomContextMenu)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)#所有列自动拉伸，充满界面
+        self.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)#设置不可编辑
+        self.tableWidget.setContextMenuPolicy(Qt.CustomContextMenu)#表格右键菜单
         self.refresh_pushButton.setProperty('class', 'Aqua')
         self.add_book_pushButton.setProperty('class', 'Aqua')
         self.search_book_pushButton.setProperty('class', 'Aqua')
         self.search_book_pushButton.setMinimumWidth(60)
         self.add_book_pushButton.setMinimumWidth(80)
         self.refresh_pushButton.setMinimumWidth(60)
-        self.tableWidget.customContextMenuRequested.connect(self.generate_menu)
+        self.tableWidget.customContextMenuRequested.connect(self.generate_menu)#关联菜单
         if self.user_role == '普通用户':
             self.add_book_pushButton.setVisible(False)
 
@@ -94,12 +94,20 @@ class BookManageWindow(Ui_Form, QWidget):
                 self.borrow_boo_win.show()
 
     def init_slot(self):
+        """
+        初始化槽函数
+        :return:
+        """
         self.add_book_pushButton.clicked.connect(lambda: self.btn_slot('add'))
         self.search_book_pushButton.clicked.connect(lambda: self.btn_slot('search'))
         self.query_book_info_done_signal.connect(self.show_book)
         self.refresh_pushButton.clicked.connect(lambda: self.btn_slot('refresh'))
 
     def init_data(self):
+        """
+        初始化图书信息列表
+        :return:
+        """
         self.get_book_info()
 
     def show_book(self, book_info_result):
@@ -133,9 +141,14 @@ class BookManageWindow(Ui_Form, QWidget):
                 item.setTextAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
 
     def btn_slot(self, tag):
+        """
+        管理界面对应添加、搜索、刷新按钮的信号槽连接
+        :param tag:
+        :return:
+        """
         if tag == 'add':
             self.add_book_win = AddBookWindow()
-            self.add_book_win.add_book_don_signal.connect(self.add_book_done)
+            self.add_book_win.add_book_don_signal.connect(self.add_book_done)#主线程中将添加图书的信号和槽函数连接
             self.add_book_win.show()
 
         if tag == 'search':
@@ -170,4 +183,8 @@ class BookManageWindow(Ui_Form, QWidget):
         self.query_book_info_done_signal.emit([count, res])
 
     def add_book_done(self):
+        """
+        添加书籍子线程发出信号之后，主线程需要进行连接的槽函数
+        :return:
+        """
         self.refresh_pushButton.click()

@@ -11,9 +11,11 @@ from ui.add_book_window import Ui_Form
 from util.dbutil import DBHelp
 from util.common_util import msg_box, APP_ICON, SYS_STYLE, set_le_reg, PATTERS
 
-
 class BookEditWindow(Ui_Form, QWidget):
-    init_book_info_done_signal = pyqtSignal()
+    """
+    继承添加书本的ui界面框，不改变布局，只是将一些控件进行文字的修改。
+    """
+    init_book_info_done_signal = pyqtSignal()#自定义编辑书本信息的信号
 
     def __init__(self, book_info=None):
         super(BookEditWindow, self).__init__()
@@ -21,8 +23,8 @@ class BookEditWindow(Ui_Form, QWidget):
         self.book_info = book_info
         self.init_ui()
         self.current_book_info = list()
-        self.init_book_info_done_signal.connect(self.init_data)
-        self.add_book_pushButton.clicked.connect(self.update_book_info)
+        self.init_book_info_done_signal.connect(self.init_data)#信号槽连接，当点击要改时，获取当前选中书本的信息
+        self.add_book_pushButton.clicked.connect(self.update_book_info)#信号槽连接，修改完成时，启动更新书籍信息
         set_le_reg(widget=self, le=self.store_num_lineEdit, pattern=PATTERS[1])
         set_le_reg(widget=self, le=self.publish_date_lineEdit, pattern=PATTERS[2])
         th = Thread(target=self.get_book_info)
@@ -46,10 +48,14 @@ class BookEditWindow(Ui_Form, QWidget):
         self.store_num_lineEdit.setText(str(self.current_book_info[4]))
 
     def get_book_info(self):
+        """
+        管理员右键菜单选择编辑书本时，获取书本的信息，并发出初始化书本信息成功的信号
+        :return:
+        """
         db = DBHelp()
         count, res = db.query_super(table_name='book', column_name='booK_name', condition=self.book_info)
         self.current_book_info = list(res[0])
-        self.init_book_info_done_signal.emit()
+        self.init_book_info_done_signal.emit()#发出书本信息编辑完成的信号
         db.instance = None
         del db
 

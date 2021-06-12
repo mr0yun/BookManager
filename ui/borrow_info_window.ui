@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>240</width>
-    <height>203</height>
+    <width>289</width>
+    <height>217</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,9 @@
        </property>
        <property name="text">
         <string>图书借阅</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>

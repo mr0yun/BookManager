@@ -15,14 +15,14 @@ import datetime
 
 
 class RenewWindow(Ui_Form, QWidget):
-    renew_done_signal = pyqtSignal(int)
+    renew_done_signal = pyqtSignal(int)#自定义信号
 
     def __init__(self, borrow_id=None):
         super(RenewWindow, self).__init__()
         self.setupUi(self)
         self.borrow_id = borrow_id
         self.setStyleSheet(SYS_STYLE)
-        self.renew_done_signal.connect(self.renew_done)
+        self.renew_done_signal.connect(self.renew_done)#信号槽连接，续借
         self.setWindowFlags(Qt.WindowCloseButtonHint)
         self.setWindowModality(Qt.ApplicationModal)
         self.renew_pushButton.setProperty('class', 'Aqua')
@@ -30,10 +30,10 @@ class RenewWindow(Ui_Form, QWidget):
         self.setWindowTitle('书籍续借')
         self.setWindowIcon(QIcon(APP_ICON))
         self.renew_pushButton.clicked.connect(self.renew)
-        self.renew_days_lineEdit.textChanged.connect(self.modify_return_date)
+        self.renew_days_lineEdit.textChanged.connect(self.modify_return_date)#信号槽连接，当续借日子改变时，使得对应的日期发生改变
         self.origin_return_time = None
         self.origin_borrow_day = 0
-        set_le_reg(widget=self, le=self.renew_days_lineEdit, pattern=PATTERS[0])
+        set_le_reg(widget=self, le=self.renew_days_lineEdit, pattern=PATTERS[0])#给控件添加正则表达式匹配，限制输入，PATTERS = ['^[0-9]{1,2}$']
         th = Thread(target=self.init_data())
         th.start()
 
@@ -91,6 +91,11 @@ class RenewWindow(Ui_Form, QWidget):
         self.return_date_lineEdit.setText(str(self.origin_return_time+datetime.timedelta(days=day)))
 
     def renew_done(self, tag):
+        """
+        是否续借成功
+        :param tag:
+        :return:
+        """
         if tag:
             msg_box(self, '提示', self.book_name_label.text()+'成功!')
             self.close()
