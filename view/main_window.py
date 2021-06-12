@@ -41,10 +41,10 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         self.stackedWidget.addWidget(HomeWindow())
         self.stackedWidget.addWidget(BorrowInfoWindow(user_role=self.role, username=self.username))
         self.stackedWidget.addWidget(BookManageWindow(self.role, self.username))
-        # if self.role == '管理员':
-        self.stackedWidget.addWidget(MessageInfoWindow(user_role=self.role, username=self.username))
-        # else:
-        #     self.stackedWidget.addWidget(MessageInfoUserWindow(user_role=self.role, username=self.username))
+        if self.role == '管理员':
+            self.stackedWidget.addWidget(MessageInfoWindow(user_role=self.role, username=self.username))
+        else:
+            self.stackedWidget.addWidget(MessageInfoUserWindow(user_role=self.role, username=self.username))
         self.stackedWidget.addWidget(AboutWindow())
 
     def init_slot(self):

@@ -38,6 +38,9 @@
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">font: 12pt &quot;宋体&quot;;</string>
+         </property>
          <property name="text">
           <string>发送者：</string>
          </property>
@@ -105,6 +108,9 @@
          <family>宋体</family>
          <pointsize>12</pointsize>
         </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font: 12pt &quot;宋体&quot;;</string>
        </property>
        <property name="text">
         <string>TextLabel</string>

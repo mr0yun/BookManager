@@ -10,8 +10,9 @@ from PyQt5.QtWidgets import QWidget, QHeaderView, QAbstractItemView, QTableWidge
 from ui.book_borrow_info_window import Ui_Form
 from util.dbutil import DBHelp
 from util.common_util import BORROW_STATUS_MAP, SYS_STYLE, SEARCH_CONTENT_MAP, msg_box, RETURN, DELAY_TIME, accept_box, \
-    DELETE_ICON, PUSH_RETURN, get_current_time
+    DELETE_ICON, PUSH_RETURN, get_current_time, get_uuid
 from view.renew_window import RenewWindow
+import traceback
 
 
 class BorrowInfoWindow(Ui_Form, QWidget):
@@ -100,11 +101,24 @@ class BorrowInfoWindow(Ui_Form, QWidget):
                     del db
                     self.refresh_pushButton.click()
                     msg_box(self, '提示', '删除记录操作成功!')
-                    pass
 
             if action == ask_return_action:
                 # 催还时所做措施（发消息？）
-                pass
+                try:
+                    username = self.tableWidget.itemAt(row_num, 0).text()
+                    bookname = self.tableWidget.itemAt(row_num, 1).text()
+                    content = "亲爱的" + username + "同学，你借的书籍《" + bookname + \
+                                      "》未还。请尽快还书，如逾期未还你的账号可能被冻结。"
+                    db = DBHelp()
+                    db.insert_message_info([get_uuid(), self.username, username,
+                                            content, get_current_time(), 2])
+                    db.db_commit()
+                    db.instance = None
+                    del db
+                    msg_box(self, '提示', '催还成功!')
+                except Exception as e:
+                    print(e.args)
+                    traceback.print_exc()
 
     def return_book(self, borrow_id):
         """
@@ -181,12 +195,8 @@ class BorrowInfoWindow(Ui_Form, QWidget):
                 item = QTableWidgetItem(str(info[i]))
                 if i == 7:
                     item.setBackground(QColor(color))
-                self.tableWidget.setItem(self.tableWidget.rowCount() - 1, i, item)
-
-        for i in range(self.tableWidget.rowCount()):
-            for j in range(self.tableWidget.columnCount()):
-                item = self.tableWidget.item(i, j)
                 item.setTextAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
+                self.tableWidget.setItem(self.tableWidget.rowCount() - 1, i, item)
 
     def book_info_th(self):
         """

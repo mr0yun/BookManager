@@ -29,6 +29,7 @@ SEND_ICON = SUPER_DIR + r'/res/img/send.png'
 
 BORROW_STATUS_MAP = {'0': '未还', '1': '已还'}
 SEARCH_CONTENT_MAP = {'书名': 'book_name', '出版社': 'publish_company', '作者': 'author', '用户': 'borrow_user'}
+MESSAGE_STATUS_MAP = {'0': '否', '1': '是', '2': '无需回复'}
 
 # 正则表达式，0. 开头、结尾均是0-9范围内的数字，且是两位数以内
 # 1. 大于0的正整数1~9999999999

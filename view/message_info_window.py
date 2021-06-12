@@ -5,12 +5,11 @@
 
 from threading import Thread
 from PyQt5.QtCore import pyqtSignal, Qt
-from PyQt5.QtGui import QColor, QIcon
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QApplication, QHeaderView, QAbstractItemView, QTableWidgetItem, QMessageBox, QMenu, QAction
 from ui.message_info_window import Ui_Form
 from util.dbutil import DBHelp
-from util.common_util import BORROW_STATUS_MAP, SYS_STYLE, SEARCH_CONTENT_MAP, msg_box, RETURN, DELAY_TIME, accept_box, \
-    SEND_ICON, DELETE_ICON, get_current_time
+from util.common_util import SYS_STYLE, msg_box, accept_box, SEND_ICON, DELETE_ICON, MESSAGE_STATUS_MAP
 from view.reply_window import ReplyWindow
 import sys
 import traceback
@@ -20,7 +19,6 @@ import traceback
 class MessageInfoWindow(Ui_Form, QWidget):
     #自定义信号
     init_data_done_signal = pyqtSignal(list)
-    return_book_done_signal = pyqtSignal()
 
     def __init__(self, user_role=None, username=None):
         super(MessageInfoWindow, self).__init__()
@@ -36,7 +34,7 @@ class MessageInfoWindow(Ui_Form, QWidget):
         self.noreply_pushButton.clicked.connect(self.search_noreply)
 
 
-        self.reply_flag = []  # 归还状态
+        self.reply_flag = []  # 回复状态
         self.message_info_id = []
         self.init_ui()
         self.init_data()
@@ -65,16 +63,6 @@ class MessageInfoWindow(Ui_Form, QWidget):
         th = Thread(target=self.message_info_th)
         th.start()
 
-    def init_slot(self):
-        """
-        初始化槽函数
-        :return:
-        """
-        self.add_book_pushButton.clicked.connect(lambda: self.btn_slot('add'))
-        self.search_book_pushButton.clicked.connect(lambda: self.btn_slot('search'))
-        self.query_book_info_done_signal.connect(self.show_book)
-        self.refresh_pushButton.clicked.connect(lambda: self.btn_slot('refresh'))
-
     def generate_menu(self, pos):
         """
         消息列表界面，生成管理员右键菜单
@@ -97,7 +85,7 @@ class MessageInfoWindow(Ui_Form, QWidget):
         del_action.setIcon(QIcon(DELETE_ICON))
         menu.addAction(del_action)
 
-        # 根据是否已经归还来判断菜单是否为可点击状态
+        # 根据是否回复来判断菜单是否为可点击状态
         if self.reply_flag[row_num] == 1:
             reply_action.setEnabled(False)
         else:
@@ -115,10 +103,14 @@ class MessageInfoWindow(Ui_Form, QWidget):
                 self.refresh_pushButton.click()
                 msg_box(self, '提示', '删除消息操作成功!')
 
-            if action == reply_action:
+        if action == reply_action:
+            try:
                 self.reply_win = ReplyWindow(self.message_info_id[row_num])
                 self.reply_win.reply_don_signal.connect(self.reply_done)
                 self.reply_win.show()
+            except Exception as e:
+                print(e.args)
+                traceback.print_exc()
 
 
     def search_message_info(self):
@@ -126,10 +118,10 @@ class MessageInfoWindow(Ui_Form, QWidget):
         搜索框依据搜索类型和输入内容查询数据库
         :return:
         """
-        if self.borrow_user_search_lineEdit.text() == '':
+        if self.sender_search_lineEdit.text() == '':
             msg_box(self, '提示', '请输入需要搜索的内容!')
             return
-        search_content = self.borrow_user_search_lineEdit.text()
+        search_content = self.sender_search_lineEdit.text()
         db = DBHelp()
         count, res = db.query_super(table_name='message', column_name='sender_name',
                                     condition=search_content)
@@ -144,16 +136,11 @@ class MessageInfoWindow(Ui_Form, QWidget):
         :return:
         """
         db = DBHelp()
-        count, res = db.query_super(table_name='message', column_name='is_replied',
-                                    condition=0)
+        count, res = db.query_message_super(column_name='is_replied', condition=0)
         if count == 0:
             msg_box(widget=self, title='提示', msg='不存在未回复的消息!')
             return
         self.get_data_from_database(res=[count, res])
-
-
-
-
 
     def show_info(self, infos):
         """
@@ -173,26 +160,14 @@ class MessageInfoWindow(Ui_Form, QWidget):
                 item.setTextAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
                 self.tableWidget.setItem(self.tableWidget.rowCount() - 1, i, item)
 
-
-        # for i in range(self.tableWidget.rowCount()):
-        #     for j in range(self.tableWidget.columnCount()):
-        #         item = self.tableWidget.item(i, j)
-        #         item.setTextAlignment(Qt.AlignVCenter | Qt.AlignHCenter)
-
     def message_info_th(self):
         """
         消息信息线程槽函数，使得用户和管理员显示的借阅界面不同，用户只显示自己发出的，管理员显示所有
         :return:
         """
-        if self.user_role == '管理员':
-            db = DBHelp()
-            count, res = db.query_super(table_name='message', column_name='receiver_name', condition=self.username)
-            self.get_data_from_database([count, res])
-        else:
-            # 普通用户只显示自己发的消息
-            db = DBHelp()
-            count, res = db.query_super(table_name='message', column_name='sender_name', condition=self.username)
-            self.get_data_from_database([count, res])
+        db = DBHelp()
+        count, res = db.query_message_super(column_name='receiver_name', condition=self.username)
+        self.get_data_from_database([count, res])
 
     def get_data_from_database(self, res):
         """
@@ -207,7 +182,12 @@ class MessageInfoWindow(Ui_Form, QWidget):
         for record in res[1]:
             self.message_info_id.append(record[0])
             self.reply_flag.append(record[-3])
-            sub_info = record[1:]
+            sub_info = [record[1]]
+            for re in record[3:-3]:
+                sub_info.append(re)
+            sub_info.append(MESSAGE_STATUS_MAP.get(str(record[-3])))
+            for re in record[-2:]:
+                sub_info.append(re)
             self.message_info_list.append(sub_info)
         self.init_data_done_signal.emit([res[0], self.message_info_list])
 

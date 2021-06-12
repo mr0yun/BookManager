@@ -93,7 +93,7 @@ class DBHelp:
 
     # 新增消息，往message表中插入1条记录
     def insert_message_info(self, data):
-        sql = "insert into message (id , sender_name, receiver_name, send_content, send_time) values(%s, %s, %s, %s, %s)"
+        sql = "insert into message (id , sender_name, receiver_name, send_content, send_time, is_replied) values(%s, %s, %s, %s, %s, %s)"
         self._cur.execute(sql, data)
 
     # 回复消息
@@ -108,10 +108,19 @@ class DBHelp:
         sql = "delete from message where id = '{}'".format(id)
         self._cur.execute(sql)
 
-    # # 更新消息状态为“已读”
-    # def update_ask_return_info(self, id):
-    #     sql = "update ask_return set is_read=1 where id='{}'".format(id)
-    #     self._cur.execute(sql)
+    # 按发送时间倒序查询消息
+    def query_message_super(self, column_name, condition):
+        sql = "select * from message where {}='{}' order by send_time desc".format(column_name, condition)
+        count = self._cur.execute(sql)
+        res = self._cur.fetchall()
+        return count, res
+
+    # 查询用户发送和接收的消息
+    def query_user_message(self, username):
+        sql = "select * from message where sender_name='{}' or receiver_name='{}' order by send_time desc".format(username, username)
+        count = self._cur.execute(sql)
+        res = self._cur.fetchall()
+        return count, res
 
     # 提交事务
     def db_commit(self):
