@@ -4,7 +4,6 @@
 """
 
 from threading import Thread
-
 from PyQt5.QtCore import pyqtSignal, Qt
 from PyQt5.QtGui import QColor, QIcon
 from PyQt5.QtWidgets import QWidget, QHeaderView, QAbstractItemView, QTableWidgetItem, QMessageBox, QMenu, QAction
@@ -93,6 +92,14 @@ class BorrowInfoWindow(Ui_Form, QWidget):
             if action == del_record_action:
                 rep = accept_box(self, '警告', '确定删除该条记录吗?')
                 if rep == QMessageBox.Yes:
+                    # 删除该信息
+                    db = DBHelp()
+                    db.delete(table_name='borrow_info', column_name='id', condition=self.borrow_info_id[row_num])
+                    db.db_commit()
+                    db.instance = None
+                    del db
+                    self.refresh_pushButton.click()
+                    msg_box(self, '提示', '删除记录操作成功!')
                     pass
 
             if action == ask_return_action:
@@ -207,11 +214,9 @@ class BorrowInfoWindow(Ui_Form, QWidget):
         self.borrow_info_id = []
         self.borrow_info_list.clear()
         for record in res:
-            print(record)
             book_id = record[1]
             self.borrow_info_id.append(record[0])
             count, book_info = db.query_super(table_name='book', column_name='id', condition=book_id)
-            print(str(record[-1]))
             sub_info = [record[3], record[2], book_info[0][3], book_info[0][-1], record[4], str(record[6]),
                         str(record[7]), BORROW_STATUS_MAP.get(str(record[-1]))]
             self.return_flag.append(record[-1])

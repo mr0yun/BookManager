@@ -48,7 +48,7 @@ try:
                 "store_number int(11),"
                 "borrow_number int(11),"
                 "create_time datetime,"
-                "publish_date datetime)")
+                "publish_date date)")
     print('book table created done.')
     print('------------------------------------')
 
@@ -66,14 +66,17 @@ try:
     print('borrow_info table created done.')
     print('------------------------------------')
 
-    print('create ask_return table...')
-    cur.execute("create table if not exists ask_return ("
-                "id int(11) PRIMARY KEY AUTO_INCREMENT NOT NULL,"
-                "user_name varchar(50) NOT NULL,"
-                "borrow_id varchar(50) NOT NULL,"
-                "is_read int(11) NOT NULL,"
-                "time datetime)")
-    print('ask_return table created done.')
+    print('create message table...')
+    cur.execute("create table if not exists message ("
+                "id varchar(50) PRIMARY KEY,"
+                "sender_name varchar(255) NOT NULL,"
+                "receiver_name varchar(255) NOT NULL,"
+                "send_content varchar(255) NOT NULL,"
+                "send_time datetime,"
+                "is_replied int(11)"
+                "reply_content varchar(255),"
+                "reply_time datetime)")
+    print('message table created done.')
     print('-'*30)
     print('operate done.')
     print('create database successfully.')

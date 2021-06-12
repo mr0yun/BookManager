@@ -91,15 +91,27 @@ class DBHelp:
                                                                                                         data[2])
         self._cur.execute(sql)
 
-    # 新增消息，往ask_return表中插入1条记录
-    def insert_ask_return_info(self, data):
-        sql = "insert into ask_return (id , user_name, borrow_id, is_read, time) values(%s, %s, %s, %s, %s)"
+    # 新增消息，往message表中插入1条记录
+    def insert_message_info(self, data):
+        sql = "insert into message (id , sender_name, receiver_name, send_content, send_time) values(%s, %s, %s, %s, %s)"
         self._cur.execute(sql, data)
 
-    # 更新消息状态为“已读”
-    def update_ask_return_info(self, id):
-        sql = "update ask_return set is_read=1 where id='{}'".format(id)
+    # 回复消息
+    def update_message_info(self, data):
+        sql = "update message set is_replied=1, reply_content='{}', reply_time='{}' where id='{}'".format(data[0],
+                                                                                                          data[1],
+                                                                                                          data[2])
         self._cur.execute(sql)
+
+    # 删除消息
+    def del_message_info(self, id):
+        sql = "delete from message where id = '{}'".format(id)
+        self._cur.execute(sql)
+
+    # # 更新消息状态为“已读”
+    # def update_ask_return_info(self, id):
+    #     sql = "update ask_return set is_read=1 where id='{}'".format(id)
+    #     self._cur.execute(sql)
 
     # 提交事务
     def db_commit(self):

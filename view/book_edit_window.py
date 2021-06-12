@@ -53,7 +53,7 @@ class BookEditWindow(Ui_Form, QWidget):
         :return:
         """
         db = DBHelp()
-        count, res = db.query_super(table_name='book', column_name='booK_name', condition=self.book_info)
+        count, res = db.query_super(table_name='book', column_name='book_name', condition=self.book_info)
         self.current_book_info = list(res[0])
         self.init_book_info_done_signal.emit()#发出书本信息编辑完成的信号
         db.instance = None
