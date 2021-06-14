@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>725</width>
+    <width>827</width>
     <height>452</height>
    </rect>
   </property>
@@ -118,7 +118,7 @@
        </column>
        <column>
         <property name="text">
-         <string>归还日期</string>
+         <string>应还日期</string>
         </property>
        </column>
        <column>

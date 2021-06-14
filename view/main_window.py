@@ -38,7 +38,7 @@ class MainWindow(Ui_MainWindow, QMainWindow):
         self.current_role_label.setText(self.role)
         self.stackedWidget.removeWidget(self.page)#将布局器中拖的两页删除，然后自己新加了三页0,1,2
         self.stackedWidget.removeWidget(self.page_2)
-        self.stackedWidget.addWidget(HomeWindow())
+        self.stackedWidget.addWidget(HomeWindow(user_role=self.role))
         self.stackedWidget.addWidget(BorrowInfoWindow(user_role=self.role, username=self.username))
         self.stackedWidget.addWidget(BookManageWindow(self.role, self.username))
         if self.role == '管理员':

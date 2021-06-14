@@ -7,7 +7,7 @@ import traceback
 host = '127.0.0.1'
 port = 3306
 user = 'root'
-password = ''  # 这是我的密码，如需使用请进行更改
+password = 'wp20000206'  # 这是我的密码，如需使用请进行更改
 
 # 手动输入参数方式
 # print('Starting the create database operation, please enter the information required for the database.')
@@ -73,7 +73,7 @@ try:
                 "receiver_name varchar(255) NOT NULL,"
                 "send_content varchar(255) NOT NULL,"
                 "send_time datetime,"
-                "is_replied int(11)"
+                "is_replied int(11),"
                 "reply_content varchar(255),"
                 "reply_time datetime)")
     print('message table created done.')
