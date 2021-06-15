@@ -94,7 +94,7 @@ def ana_by_bs4(html):
 
 # 存储数据
 def insert_data(data_list):
-    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='wp20000206', db='book',
+    conn = pymysql.connect(host='127.0.0.1', port=3306, user='root', password='', db='book',
                            charset='utf8')  # 连接数据库
     cur = conn.cursor()  # 用于访问和操作数据库中的数据（一个游标，像一个指针）
     # 首先得保证存在book数据库，然后库中有douban_book表，属性和下面的对应

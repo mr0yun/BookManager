@@ -8,7 +8,7 @@ import traceback
 host = '127.0.0.1'
 port = 3306
 user = 'root'
-password = 'wp20000206'  # 数据库密码
+password = ''  # 数据库密码
 
 # 手动输入参数方式
 # print('Starting the create database operation, please enter the information required for the database.')
@@ -80,7 +80,7 @@ try:
     print('message table created done.')
 
     print('create annoucement table...')
-    cur.execute("create table if not exists message ("
+    cur.execute("create table if not exists annoucement ("
                 "  `id` varchar(50) NOT NULL,"
                 "`annouce_title` varchar(255) NOT NULL,"
                 "`annouce_content` varchar(255) NOT NULL,"
@@ -89,7 +89,7 @@ try:
     print('annoucement table created done.')
 
     print('create douban_book table...')
-    cur.execute("create table if not exists message ("
+    cur.execute("create table if not exists douban_book ("
                 ' `img_href` varchar(255) DEFAULT NULL,'
                 ' `title` varchar(255) DEFAULT NULL,'
                 ' `author` varchar(255) DEFAULT NULL,'

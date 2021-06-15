@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>653</width>
-    <height>434</height>
+    <width>1031</width>
+    <height>554</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@ border: 1px;</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">font: 14pt &quot;宋体&quot;;</string>
          </property>
          <property name="text">
           <string>好书推荐</string>
@@ -46,9 +46,12 @@ border: 1px;</string>
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">font: 12pt &quot;宋体&quot;;</string>
+         </property>
          <column>
           <property name="text">
-           <string>  </string>
+           <string/>
           </property>
           <property name="font">
            <font>
@@ -122,7 +125,7 @@ border: 1px;</string>
           </font>
          </property>
          <property name="styleSheet">
-          <string notr="true"/>
+          <string notr="true">font: 14pt &quot;宋体&quot;;</string>
          </property>
          <property name="text">
           <string>公告栏</string>
@@ -140,8 +143,14 @@ border: 1px;</string>
          <property name="font">
           <font>
            <family>宋体</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 12pt &quot;宋体&quot;;</string>
          </property>
          <property name="text">
           <string>TextLabel</string>
@@ -193,6 +202,9 @@ border: 1px;</string>
            <pointsize>12</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true">font: 12pt &quot;宋体&quot;;</string>
+         </property>
          <property name="text">
           <string>发布公告</string>
          </property>
@@ -215,6 +227,9 @@ border: 1px;</string>
            <family>宋体</family>
            <pointsize>12</pointsize>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 12pt &quot;宋体&quot;;</string>
          </property>
          <column>
           <property name="text">
