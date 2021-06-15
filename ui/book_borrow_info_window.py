@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'book_borrow_info_window.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Form(object):
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(725, 452)
+        Form.resize(827, 452)
         self.gridLayout = QtWidgets.QGridLayout(Form)
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
@@ -22,6 +22,7 @@ class Ui_Form(object):
         self.comboBox = QtWidgets.QComboBox(Form)
         self.comboBox.setStyleSheet("font: 12pt \"宋体\";")
         self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.horizontalLayout.addWidget(self.comboBox)
@@ -70,6 +71,7 @@ class Ui_Form(object):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.comboBox.setItemText(0, _translate("Form", "用户"))
         self.comboBox.setItemText(1, _translate("Form", "书名"))
+        self.comboBox.setItemText(2, _translate("Form", "出版社"))
         self.search_borrow_user_pushButton.setText(_translate("Form", "搜索"))
         self.refresh_pushButton.setText(_translate("Form", "刷新"))
         item = self.tableWidget.horizontalHeaderItem(0)
@@ -85,7 +87,7 @@ class Ui_Form(object):
         item = self.tableWidget.horizontalHeaderItem(5)
         item.setText(_translate("Form", "借出日期"))
         item = self.tableWidget.horizontalHeaderItem(6)
-        item.setText(_translate("Form", "归还日期"))
+        item.setText(_translate("Form", "应还日期"))
         item = self.tableWidget.horizontalHeaderItem(7)
         item.setText(_translate("Form", "借还状态"))
 

@@ -4,10 +4,11 @@
 """
 import pymysql
 import traceback
+
 host = '127.0.0.1'
 port = 3306
 user = 'root'
-password = 'wp20000206'  # 这是我的密码，如需使用请进行更改
+password = 'wp20000206'  # 数据库密码
 
 # 手动输入参数方式
 # print('Starting the create database operation, please enter the information required for the database.')
@@ -77,7 +78,30 @@ try:
                 "reply_content varchar(255),"
                 "reply_time datetime)")
     print('message table created done.')
-    print('-'*30)
+
+    print('create annoucement table...')
+    cur.execute("create table if not exists message ("
+                "  `id` varchar(50) NOT NULL,"
+                "`annouce_title` varchar(255) NOT NULL,"
+                "`annouce_content` varchar(255) NOT NULL,"
+                " `annouce_time` datetime DEFAULT NULL,"
+                "PRIMARY KEY (`id`))")
+    print('annoucement table created done.')
+
+    print('create douban_book table...')
+    cur.execute("create table if not exists message ("
+                ' `img_href` varchar(255) DEFAULT NULL,'
+                ' `title` varchar(255) DEFAULT NULL,'
+                ' `author` varchar(255) DEFAULT NULL,'
+                '`pub` varchar(255) DEFAULT NULL,'
+                '  `pub_year` varchar(255) DEFAULT NULL,'
+                '  `price` varchar(255) DEFAULT NULL,'
+                ' `grade` varchar(255) DEFAULT NULL,'
+                ' `remark_num` varchar(255) DEFAULT NULL,'
+                '  `quote` varchar(255) DEFAULT NULL)')
+    print('douban_book table created done.')
+
+    print('-' * 30)
     print('operate done.')
     print('create database successfully.')
 except Exception as e:
@@ -95,10 +119,10 @@ if insert_tag == '1':
     print('------------------------------------')
     print('starting the insert data operation...')
     admin_data = ['12644064935811ea9063d8c497639e37', 'admin', '21232f297a57a5a743894a0e4a801fc3', 0,
-                  '2021-06-06 15:23:12', 0, '2020-06-06 15:24:23']
+                  '2021-06-01 15:23:12', 0, '2021-06-01 15:24:23']
     user_data = ['99477a9e935811ea8171d8c497639e37', 'zhangsan', 'e10adc3949ba59abbe56e057f20f883e', 1,
-                 '2020-06-06 15:23:12', 0, '2020-06-06 15:24:23']
-    sql = 'insert into user (id, username, password, role, create_time, delete_flag, current_login_time) values(%s,%s,'\
+                 '2021-06-03 15:23:12', 0, '2021-06-03 15:24:23']
+    sql = 'insert into user (id, username, password, role, create_time, delete_flag, current_login_time) values(%s,%s,' \
           '%s,%s,%s,%s,%s)'
     cur.execute(sql, admin_data)
     cur.execute(sql, user_data)

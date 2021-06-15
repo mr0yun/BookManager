@@ -123,34 +123,24 @@ class DBHelp:
         return count, res
 
 
-    #将公告插入数据库
+    # 将公告插入数据库
     def insert_annouce_info(self, data):
         sql = "insert into annoucement (id ,annouce_title, annouce_content, annouce_time) values(%s, %s, %s, %s)"
         self._cur.execute(sql, data)
 
-
-    def update_annouce_info(self, data):
-        sql = "update annoucement set is_replied=1, reply_content='{}', reply_time='{}' where id='{}'".format(data[0],
-                                                                                                          data[1],
-                                                                                                          data[2])
-        self._cur.execute(sql)
-
-
-
-    def del_annouce_info(self, id):
-        sql = "delete from annoucement where id = '{}'".format(id)
-        self._cur.execute(sql)
-
-
-
+    # 查询公告
     def query_annouce(self):
         sql = "select * from annoucement  order by annouce_time desc"
         count = self._cur.execute(sql)
         res = self._cur.fetchall()
         return count, res
 
-
-
+    # 数据库中随机获取15条豆瓣top250数据
+    def query_douban(self):
+        sql = "select * from douban_book order by rand() limit 15"
+        count = self._cur.execute(sql)
+        res = self._cur.fetchall()
+        return count, res
 
 
     # 提交事务
