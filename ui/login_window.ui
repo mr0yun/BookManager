@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>420</width>
-    <height>335</height>
+    <height>347</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -112,6 +112,9 @@
            <pointsize>14</pointsize>
           </font>
          </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
          <property name="text">
           <string>用户:</string>
          </property>
@@ -121,9 +124,15 @@
         <widget class="QLineEdit" name="username_lineEdit">
          <property name="font">
           <font>
-           <family>Agency FB</family>
+           <family>宋体</family>
            <pointsize>12</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 12pt &quot;宋体&quot;;</string>
          </property>
          <property name="text">
           <string>admin</string>
@@ -167,9 +176,15 @@
         <widget class="QLineEdit" name="password_lineEdit">
          <property name="font">
           <font>
-           <family>Agency FB</family>
+           <family>宋体</family>
            <pointsize>12</pointsize>
+           <weight>50</weight>
+           <italic>false</italic>
+           <bold>false</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">font: 12pt &quot;宋体&quot;;</string>
          </property>
          <property name="text">
           <string>admin</string>

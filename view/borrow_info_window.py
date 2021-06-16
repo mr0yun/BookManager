@@ -105,8 +105,9 @@ class BorrowInfoWindow(Ui_Form, QWidget):
             if action == ask_return_action:
                 # 催还时所做措施（发消息？）
                 try:
-                    username = self.tableWidget.itemAt(row_num, 0).text()
-                    bookname = self.tableWidget.itemAt(row_num, 1).text()
+                    username = self.tableWidget.item(row_num, 0).text()
+                    bookname = self.tableWidget.item(row_num, 1).text()
+                    print(username, " ", bookname)
                     content = "亲爱的" + username + "同学，你借的书籍《" + bookname + \
                                       "》未还。请尽快还书，如逾期未还你的账号可能被冻结。"
                     db = DBHelp()
